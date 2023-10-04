@@ -16,9 +16,14 @@ function useNodeHandlers(setNodes) {
     ));
   }, [setNodes]);
 
+  const handleDelete = useCallback((id) => {
+    setNodes(nodes => nodes.filter(node => node.id !== id));
+  }, [setNodes]);
+
   return {
     handleEditing,
-    handleAccept
+    handleAccept,
+    handleDelete
   };
 }
 
@@ -48,7 +53,17 @@ function Canvas() {
     <div style={{ display: 'flex', height: '100vh' }}>
       <Sidebar onDragStart={handleDragStart} />
       <div
-        style={{ flex: 1, position: 'relative', background: '#f0f0f0' }}
+        style={{
+          flex: 1,
+          position: 'relative',
+          background: '#f0f0f0',
+          backgroundImage: `
+          linear-gradient(0deg, #ebebeb 1px, transparent 1px),
+          linear-gradient(90deg, #ebebeb 1px, transparent 1px)
+        `,
+          backgroundSize: '30px 30px',
+          backgroundPosition: '0 0, 15px 15px',
+        }}
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
       >
